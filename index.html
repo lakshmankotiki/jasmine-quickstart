@@ -1,0 +1,173 @@
+<html>
+
+<head>
+    <link rel="shortcut icon" type="image/png" href="./jasmine/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="./jasmine/jasmine.css">
+
+    <script type="text/javascript" src="./jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="./jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="./jasmine/boot.js"></script>
+
+    <script>
+        function getOpposite(bool) {
+            return !bool;
+        }
+
+        function add(a, b) {
+            return a + b;
+        }
+
+        function substract(a,b) {
+            return a - b;
+        }
+
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        function division(a, b) {
+            return a/b;
+        }
+
+        function normalizedData(jsonIn) {
+            var data = JSON.parse(jsonIn);
+            return {
+                name: data.Name,
+                id: data.IDNumber
+            };
+        }
+
+        describe('should display the opposite boolean value', () => {
+            it('Write Your Test Expectation Here', () => {
+                // arrange
+                let bool = false;
+
+                // act
+                const result = getOpposite(bool);
+
+                // assert
+                expect(result === result).toBe(true);
+            });
+        });
+
+        describe('this should deal with arithmetic operations on numbers', () => {
+            it('should returns the sum of two numbers and displayed the result', () => {
+                //arrange
+                const num1 = 3;
+                const num2 = 6;
+
+                //act
+                const result = add(num1, num2);
+
+                //assert
+                expect(result).toBe(9);
+
+            });
+
+            it('should returns the substraction of two numbers and displayed the result', () => {
+                //arrange
+                const num1 = 3;
+                const num2 = 6;
+
+                //act
+                const result = substract(num1, num2);
+
+                //assert
+                expect(result).toBe(-3);
+
+            });
+
+            it('should returns the multiplication of two numbers and displayed the result', () => {
+                //arrange
+                const num1 = 3;
+                const num2 = 6;
+
+                //act
+                const result = multiply(num1, num2);
+
+                //assert
+                expect(result).toBeGreaterThan(3);
+
+            })
+
+            it('should returns the division of two numbers and displayed the result', () => {
+                //arrange
+                const num1 = 3;
+                const num2 = 6;
+
+                //act
+                const result = division(num1, num2);
+
+                //assert
+                expect(result).toBe(0.5);
+
+            });
+        })
+
+        describe('this should parse json data', () => {
+            it('retunrs the parsed data from object', () => {
+                //arrange
+                var json = '{"Name": "Lakshman", "IDNumber": 3772}';
+
+                //act
+                var result = normalizedData(json);
+
+                //assert
+                expect(result.name).toBe("Lakshman");
+            })
+        });
+
+        describe("this should contain all the jasmine core functions", () => {
+            var a = 2;
+            var bool = true;
+            it("Describe about the function of 'toBe'", () => {
+
+                expect(a).toBe(2);
+            });
+
+            it("Describes about the function of 'not toBe'", () => {
+                expect(a).not.toBe(3);
+            })
+
+            it("Describes about the function of 'toEqual'", () => {
+                expect(a).toEqual(2);
+            });
+
+            it("Describes about the function of 'nothing'", () => {
+                var b = 4;
+                expect(b).nothing()
+            });
+
+            it("Describes about the function of 'toBeCloseTo'", () => {
+                expect(a).toBeCloseTo(1.999);
+            });
+
+            it("Describes about the function of 'toBeDefined'", () => {
+                var c = 7;
+                expect(c).toBeDefined()
+            });
+
+            it("Describes about the function of 'toBeFalsy'", () => {
+                expect(!bool).toBeFalsy();
+            });
+
+            it("Describes about the function 'toBeGreaterThan'", () => {
+                expect(a).toBeGreaterThan(1);
+            });
+
+            it("Describes about the function 'toBeGreaterThanOrEqual'", () => {
+                expect(a).toBeGreaterThanOrEqual(1)
+            });
+
+            it("Describes about the function 'toBeLessThan'", () => {
+                expect(a).toBeLessThan(9)
+            });
+
+            it("Describes about the function 'toBeLessThanOrEqual'", () => {
+                expect(a).toBeLessThanOrEqual(2)
+            });
+        })
+    </script>
+</head>
+
+</html>
