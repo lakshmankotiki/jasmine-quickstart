@@ -17,7 +17,7 @@
             return a + b;
         }
 
-        function substract(a,b) {
+        function substract(a, b) {
             return a - b;
         }
 
@@ -26,7 +26,7 @@
         }
 
         function division(a, b) {
-            return a/b;
+            return a / b;
         }
 
         function normalizedData(jsonIn) {
@@ -36,6 +36,34 @@
                 id: data.IDNumber
             };
         }
+
+        function Season() {
+            this.season = 'spring',
+                this.nextSeason = function() {
+                    this.season = 'summer';
+                    return this.season;
+                },
+                this.favSeason = function() {
+                    this.season = 'winter';
+                    return this.season;
+                },
+                this.sum = function() {
+                    var a = 3,
+                        b = 5;
+                    return a + b;
+                },
+                this.getNextSeason = function() {
+                    this.nextSeason();
+                    this.favSeason();
+                    this.sum();
+                }
+        }
+
+        function Circle() {
+            this.circumference = function(r) {
+                return 2 * Math.PI * r;
+            }
+        };
 
         describe('should display the opposite boolean value', () => {
             it('Write Your Test Expectation Here', () => {
@@ -167,6 +195,109 @@
                 expect(a).toBeLessThanOrEqual(2)
             });
         })
+
+        // describe('Understanding afterEach using Value of n', function() {
+        //     var n = 0;
+
+        //     afterEach(function(done) {
+        //         setTimeout(function() {
+        //             n++;
+        //             done();
+        //         }, 3000);
+        //     });
+
+        //     it('is 0', function() {
+        //         expect(n).toEqual(0);
+        //     });
+
+        //     it('is 1', function() {
+        //         expect(n).toEqual(1);
+        //     });
+
+        //     it('is 2', function() {
+        //         expect(n).toEqual(2);
+        //     });
+        // });
+
+        describe("Understanding the difference between toEqual and toBe", () => {
+            it("check the TOBE function", () => {
+                var a = ['1'];
+                var b = ['1'];
+
+                //two objects never be same in javascript
+                expect(a).not.toBe(b);
+            });
+
+            it("check the TOEQUAL function", () => {
+                var c = ['1'];
+                var d = ['1'];
+
+                expect(c).toEqual(d);
+            });
+        })
+
+        describe("Implemented SPY functionality with constructor", () => {
+            it("should be display summer", () => {
+                var seaCon = new Season();
+                seaCon.getNextSeason();
+                expect(seaCon.season).toBe('winter');
+            })
+            it("Implemented 'spyOn()' should be display spring", () => {
+                var seaCon = new Season();
+                spyOn(seaCon, 'nextSeason'); //doesn't call nextSeason()
+                spyOn(seaCon, 'favSeason'); //doesn't call favSearch()
+                seaCon.getNextSeason();
+                expect(seaCon.season).toBe('spring');
+            })
+
+            it("Implemented '.and.callThrough()' should display winter", () => {
+                var seaCon = new Season();
+                spyOn(seaCon, 'favSeason').and.callThrough();
+                seaCon.getNextSeason();
+                expect(seaCon.season).toBe('winter')
+            });
+
+            it("Implemented '.and.returnValue()' should display onfly value", () => {
+                var seaCon = new Season();
+                spyOn(seaCon, 'nextSeason').and.returnValue('Autumn');
+                seaCon.getNextSeason();
+                expect(seaCon.nextSeason()).toBe('Autumn');
+            })
+
+            it("Implemented '.and.callFake()' should display value", () => {
+                var seaCon = new Season();
+                spyOn(seaCon, 'sum').and.callFake(function() {
+                    var a = 7,
+                        b = 3;
+                    return a - b;
+                });
+                seaCon.getNextSeason();
+                expect(seaCon.sum()).toBe(4);
+            })
+        })
+
+        describe("The spyMatchers methods", function() {
+            it('"toHaveBeenCalled" should track that the spy was called', function() {
+                var cons = new Circle();
+                spyOn(cons, 'circumference');
+                cons.circumference(2);
+                expect(cons.circumference).toHaveBeenCalled();
+            });
+
+            it('"toHaveBeenCalledWith" should track the arguments of its calls', function() {
+                var cons = new Circle();
+                spyOn(cons, 'circumference');
+                cons.circumference(2);
+                expect(cons.circumference).toHaveBeenCalledWith(2);
+            });
+
+            it('"toHaveBeenCalledTimes" should track the number of times the spy was called', function() {
+                var cons = new Circle();
+                spyOn(cons, 'circumference');
+                cons.circumference(2);
+                expect(cons.circumference).toHaveBeenCalledTimes(1);
+            });
+        });
     </script>
 </head>
 
